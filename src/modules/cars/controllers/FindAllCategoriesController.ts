@@ -1,10 +1,10 @@
 import { Request, Response } from 'express';
 import { CategoryRepository } from '../repositories/CategoryRepository';
 
-const categoryRepository = CategoryRepository.getInstance();
-
 class FindAllCategoriesController {
     handle(request: Request, response: Response) {
+        const categoryRepository = CategoryRepository.getInstance();
+
         return response.json(categoryRepository.list());
     }
 }
