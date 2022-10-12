@@ -27,7 +27,10 @@ class ImportCategoryService {
 
                     categories.push({ name, description });
                 })
-                .on('end', () => resolve(categories));
+                .on('end', () => {
+                    fs.promises.unlink(file.path);
+                    resolve(categories);
+                });
         });
     }
 
@@ -36,7 +39,7 @@ class ImportCategoryService {
 
         categories.map((category) => {
             const { name, description } = category;
-            
+
             const categoryAlredyExists =
                 this.categoryRepository.findByName(name);
 
