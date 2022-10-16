@@ -2,10 +2,12 @@ import { Request, Response } from 'express';
 import { CategoryRepository } from '../repositories/CategoryRepository';
 
 class FindAllCategoriesController {
-    handle(request: Request, response: Response) {
-        const categoryRepository = CategoryRepository.getInstance();
+    async handle(request: Request, response: Response) {
+        const categoryRepository = new CategoryRepository();
 
-        return response.json(categoryRepository.list());
+        const categories = await categoryRepository.list();
+
+        return response.json(categories);
     }
 }
 

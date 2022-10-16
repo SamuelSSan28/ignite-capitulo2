@@ -2,11 +2,10 @@ import { Request, Response } from 'express';
 import { CategoryRepository } from '../repositories/CategoryRepository';
 import { ImportCategoryService } from '../services/ImportCategoryService';
 
-const categoryRepository = CategoryRepository.getInstance();
-
 class ImportCategoryController {
-    
     handle(request: Request, response: Response) {
+        const categoryRepository = new CategoryRepository();
+
         const { file } = request;
 
         if (!file) {
@@ -16,8 +15,12 @@ class ImportCategoryController {
         const importCategoryService = new ImportCategoryService(
             categoryRepository
         );
+        try {
+            importCategoryService.execute(file);
+        } catch (error) {
+            return response.status(400).json({error});
 
-        importCategoryService.execute(file);
+        }
 
         return response.status(201).send();
     }

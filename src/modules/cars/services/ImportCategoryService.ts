@@ -37,11 +37,11 @@ class ImportCategoryService {
     async execute(file: Express.Multer.File) {
         const categories = await this.loadFile(file);
 
-        categories.map((category) => {
+        categories.map(async (category) => {
             const { name, description } = category;
 
             const categoryAlredyExists =
-                this.categoryRepository.findByName(name);
+                await this.categoryRepository.findByName(name);
 
             if (categoryAlredyExists) {
                 throw new Error('Category Alredy Exists!');
