@@ -1,13 +1,16 @@
 import { Request, Response } from 'express';
-import { CategoryRepository } from '../repositories/CategoryRepository';
+import { FindAllCategoriesService } from '../services/FindAllCategoriesService';
+import { container } from 'tsyringe';
 
 class FindAllCategoriesController {
     async handle(request: Request, response: Response) {
-        const categoryRepository = new CategoryRepository();
+        const findAllCategoriesService = container.resolve(
+            FindAllCategoriesService
+        );
 
-        const categories = await categoryRepository.list();
+        const allCategories = await findAllCategoriesService.execute();
 
-        return response.json(categories);
+        return response.json(allCategories);
     }
 }
 

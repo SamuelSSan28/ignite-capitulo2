@@ -1,11 +1,11 @@
 import { Router } from 'express';
 import { CreateSpecificationController } from '../modules/cars/controllers/CreateSpecificationController';
-import { FindAllSpecificationController } from '../modules/cars/controllers/FindAlSpecificationsController';
+import { FindAllSpecificationsController } from '../modules/cars/controllers/FindAllSpecificationsController';
 
 const specificationsRoutes = Router();
 
 const createSpecificationController = new CreateSpecificationController();
-const findAllSpecificationController = new FindAllSpecificationController();
+const findAllSpecificationController = new FindAllSpecificationsController();
 
 specificationsRoutes.post('/', createSpecificationController.handle);
 

@@ -1,18 +1,21 @@
 import { Request, Response } from 'express';
 import { SpecificationRepository } from '../repositories/SpecificationRepository';
 import { CreateSpecificationService } from '../services/CreateSpecificationService';
+import { container } from 'tsyringe';
 
 class CreateSpecificationController {
-    handle(request: Request, response: Response) {
-        const specificationRepository = SpecificationRepository.getInstance();
-
+    async handle(request: Request, response: Response) {
         const { name, description } = request.body;
 
-        const createSpecificationService = new CreateSpecificationService(
-            specificationRepository
+        const createSpecificationService = container.resolve(
+            CreateSpecificationService
         );
 
-        createSpecificationService.execute({ name, description });
+        try {
+            await createSpecificationService.execute({ name, description });
+        } catch (error) {
+            return response.status(400).json({ error }).send();
+        }
 
         return response.status(201).send();
     }
