@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import multer from 'multer';
+import { uploadConfig } from '../config/upload';
 
 import { CreateCategoryController } from '../modules/cars/controllers/CreateCategoryController';
 import { FindAllCategoriesController } from '../modules/cars/controllers/FindAllCategoriesController';
@@ -10,7 +11,7 @@ const createCategoryController = new CreateCategoryController();
 const findAllCategoriesController = new FindAllCategoriesController();
 const importCategoryController = new ImportCategoryController();
 
-const upload = multer({ dest: './tmp/' });
+const upload = multer(uploadConfig('./tmp'));
 
 categoriesRoutes.post('/', createCategoryController.handle);
 

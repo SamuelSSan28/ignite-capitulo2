@@ -27,9 +27,8 @@ export async function ensureAuthenticated(
 
         const user = userRepository.findById(user_id);
 
+        request.user = { id: user_id };
         
-
-
     } catch (error) {
         return response.status(401).json({ message: 'Ivalid Token' });
     }

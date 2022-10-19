@@ -3,7 +3,6 @@ import { Column, CreateDateColumn, Entity, PrimaryColumn } from 'typeorm';
 
 @Entity('users')
 class User {
-
     @PrimaryColumn()
     id?: string;
 
@@ -15,7 +14,10 @@ class User {
 
     @Column()
     password: string;
-    
+
+    @Column()
+    avatar: string;
+
     @Column()
     isAdmin: boolean;
 
