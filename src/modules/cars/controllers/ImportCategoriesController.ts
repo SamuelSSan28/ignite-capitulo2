@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import { ImportCategoryService } from '../services/ImportCategoryService';
 import { container } from 'tsyringe';
+import AppError from '../../../errors/AppError';
 
 
 class ImportCategoryController {
@@ -8,7 +9,7 @@ class ImportCategoryController {
         const { file } = request;
 
         if (!file) {
-            throw new Error('Arquivo não foi enviado!');
+            throw new AppError('Arquivo não foi enviado!');
         }
 
         const importCategoryService = container.resolve(ImportCategoryService);

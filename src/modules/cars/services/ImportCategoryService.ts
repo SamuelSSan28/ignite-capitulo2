@@ -2,6 +2,7 @@ import fs from 'fs';
 import { parse } from 'csv-parse';
 import { ICategoryRepository } from '../repositories/ICategoryRepository';
 import { inject, injectable } from 'tsyringe';
+import AppError from '../../../errors/AppError';
 
 interface IImportCategory {
     name: string;
@@ -49,7 +50,7 @@ class ImportCategoryService {
                 await this.categoryRepository.findByName(name);
 
             if (categoryAlredyExists) {
-                throw new Error('Category Alredy Exists!');
+                throw new AppError('Category Alredy Exists!');
             }
 
             this.categoryRepository.create({ name, description });
