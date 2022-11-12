@@ -23,7 +23,7 @@ class CreateCategoryService {
             throw new AppError('Category Alredy Exists!');
         }
 
-        this.categoryRepository.create({ name, description });
+        await this.categoryRepository.create({ name, description });
     }
 }
 

@@ -2,12 +2,14 @@ import express from 'express';
 import 'express-async-errors';
 import swaggerUi from 'swagger-ui-express';
 
-import './database';
+import createConnection from './database';
 import './shared/container';
 
 import { router } from './routes';
 import swaggerFile from './swagger.json';
 import errorMiddleware from './middlewares/errorMiddleware';
+
+createConnection();
 
 const app = express();
 
